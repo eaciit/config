@@ -91,6 +91,17 @@ func Get(id string) interface{} {
 	return ret
 }
 
+func GetDefault(id string, def interface{}) interface{} {
+	if !isLoaded {
+		Load()
+	}
+	ret, exist := configs[id]
+	if exist == false {
+		ret = def
+	}
+	return ret
+}
+
 func Set(id string, value interface{}) error {
 	if configs == nil {
 		configs = make(map[string]interface{})
